@@ -7,9 +7,17 @@
 
 import UIKit
 
+//
+//  ViewController.swift
+//  NatifeTest
+//
+//  Created by Евгений  on 15/07/2022.
+//
+
+import UIKit
+
 class PostsViewController: UIViewController {
     
-    @IBOutlet weak var sortButton: UIBarButtonItem!
     @IBOutlet weak var postsTableView: UITableView!
     
     var requestManager = RequestManager()
@@ -22,6 +30,9 @@ class PostsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "PostsApp"
+        postsTableView.delegate = self
+        postsTableView.dataSource = self
+        postsTableView.register(UINib(nibName: "PostsCell", bundle: nil), forCellReuseIdentifier: "reusableCell")
         requestManager.delegate = self
         requestManager.getURL()
     }
@@ -38,5 +49,34 @@ extension PostsViewController: RequestManagerDelegate {
         print(error)
     }
 }
+
+extension PostsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"reusableCell", for: indexPath) as! PostsCell
+        let post = posts[indexPath.row]
+        cell.configure(title: post.title, text: post.preview, likes: post.likes, date: post.date)
+        cell.onReadMoreTapped = { [weak self] in
+            self?.postsTableView.beginUpdates()
+            self?.postsTableView.endUpdates()
+        }
+        return cell
+    }
+}
+
+
+extension PostsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+}
+
+
+
 
 
