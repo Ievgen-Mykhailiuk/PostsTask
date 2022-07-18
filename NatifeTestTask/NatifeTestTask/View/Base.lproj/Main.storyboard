@@ -11,7 +11,7 @@
         <!--Posts View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PostsViewController" customModule="NatifeTestTask" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PostsViewController" customModule="NatifeTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,9 +30,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8kD-sh-fjp" secondAttribute="bottom" id="wMw-gC-Ny3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="iF1-mX-zjP"/>
+                    <navigationItem key="navigationItem" id="iF1-mX-zjP">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="text.justifyleft" catalog="system" id="fKH-Sn-92y"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="postsTableView" destination="8kD-sh-fjp" id="Dk2-wE-iuK"/>
+                        <outlet property="sortButton" destination="fKH-Sn-92y" id="ACA-tb-ix1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -74,8 +77,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="text.justifyleft" catalog="system" width="128" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
+

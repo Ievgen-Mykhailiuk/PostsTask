@@ -1,14 +1,5 @@
 //
 //  ViewController.swift
-//  NatifeTestTask
-//
-//  Created by Евгений  on 18/07/2022.
-//
-
-import UIKit
-
-//
-//  ViewController.swift
 //  NatifeTest
 //
 //  Created by Евгений  on 15/07/2022.
@@ -18,6 +9,7 @@ import UIKit
 
 class PostsViewController: UIViewController {
     
+    @IBOutlet weak var sortButton: UIBarButtonItem!
     @IBOutlet weak var postsTableView: UITableView!
     
     var requestManager = RequestManager()
@@ -34,7 +26,33 @@ class PostsViewController: UIViewController {
         postsTableView.dataSource = self
         postsTableView.register(UINib(nibName: "PostsCell", bundle: nil), forCellReuseIdentifier: "reusableCell")
         requestManager.delegate = self
+        sortButton.menu = sortPosts()
         requestManager.getURL()
+    }
+    
+    func sortPosts() -> UIMenu {
+        let sortMenu = UIMenu(title: "Sort by", children: [
+            UIAction(title: "Default", image: UIImage(systemName: "stop"))  { action in
+                self.requestManager.getURL()
+            },
+            UIAction(title: "Likes", image: UIImage(systemName: "heart"))  { action in
+                self.sortByLikes()
+            },
+            UIAction(title: "Date", image: UIImage(systemName: "calendar")) { action in
+                self.sortByDate()
+            }
+        ])
+        return sortMenu
+    }
+    
+    func sortByLikes() {
+        posts =  posts.sorted(by: { $0.likes > $1.likes} )
+        postsTableView.reloadData()
+    }
+    
+    func sortByDate() {
+        posts = posts.sorted(by: { $0.date > $1.date})
+        postsTableView.reloadData()
     }
 }
 
@@ -75,8 +93,6 @@ extension PostsViewController: UITableViewDelegate {
     }
     
 }
-
-
 
 
 
