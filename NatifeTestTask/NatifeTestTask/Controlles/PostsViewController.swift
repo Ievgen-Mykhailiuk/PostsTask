@@ -7,33 +7,52 @@
 
 import UIKit
 
-class PostsViewController: UIViewController {
+final class PostsViewController: UIViewController {
     
+    //MARK: - Outlets
     @IBOutlet weak var sortButton: UIBarButtonItem!
     @IBOutlet weak var postsTableView: UITableView!
     
-    var requestManager = RequestManager()
-    var posts: [PostsModel] = [] {
+    //MARK: - Properties
+    private var requestManager = RequestManager()
+    private var posts: [PostsModel] = [] {
         didSet {
             postsTableView.reloadData()
         }
     }
     
+    //MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "PostsApp"
+        setupTableView()
+        requestManager.delegate = self
+        setupSortButton()
+        requestManager.getPosts()
+    }
+    
+    //MARK: - TableView setup
+    private func setupTableView() {
         postsTableView.delegate = self
         postsTableView.dataSource = self
         postsTableView.register(UINib(nibName: "PostsCell", bundle: nil), forCellReuseIdentifier: "reusableCell")
-        requestManager.delegate = self
-        sortButton.menu = sortPosts()
-        requestManager.getURL()
     }
     
-    func sortPosts() -> UIMenu {
+    //MARK: - Alerts
+    private func showAlert(title: String, buttonTitle: String, error: Error) {
+        let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - Sorting methods
+    private func setupSortButton() {
+        sortButton.menu = sortMenu()
+    }
+
+    private func sortMenu() -> UIMenu {
         let sortMenu = UIMenu(title: "Sort by", children: [
             UIAction(title: "Default", image: UIImage(systemName: "stop"))  { action in
-                self.requestManager.getURL()
+                self.requestManager.getPosts()
             },
             UIAction(title: "Likes", image: UIImage(systemName: "heart"))  { action in
                 self.sortByLikes()
@@ -45,17 +64,18 @@ class PostsViewController: UIViewController {
         return sortMenu
     }
     
-    func sortByLikes() {
+    private func sortByLikes() {
         posts =  posts.sorted(by: { $0.likes > $1.likes} )
         postsTableView.reloadData()
     }
     
-    func sortByDate() {
+    private func sortByDate() {
         posts = posts.sorted(by: { $0.date > $1.date})
         postsTableView.reloadData()
     }
 }
 
+//MARK: - RequestManagerDelegate
 extension PostsViewController: RequestManagerDelegate {
     func updateContent(data: [PostsModel]) {
         DispatchQueue.main.async {
@@ -64,10 +84,11 @@ extension PostsViewController: RequestManagerDelegate {
     }
     
     func didFailWithError(error: Error) {
-        print(error)
+        showAlert(title: "Error", buttonTitle: "OK", error: error)
     }
 }
 
+//MARK: - UITableViewDataSource
 extension PostsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
@@ -85,11 +106,14 @@ extension PostsViewController: UITableViewDataSource {
     }
 }
 
-
+//MARK: - UITableViewDelegate
 extension PostsViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let postId = posts[indexPath.row].id
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+        vc.id = postId
+        self.navigationController?.pushViewController(vc, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }

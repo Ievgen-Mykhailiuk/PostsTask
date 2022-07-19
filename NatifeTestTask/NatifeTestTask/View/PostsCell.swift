@@ -7,8 +7,8 @@
 
 import UIKit
 
-class PostsCell: UITableViewCell {
-    
+final class PostsCell: UITableViewCell {
+    //MARK: - Outlets
     @IBOutlet weak var postTitleLabel: UILabel!
     @IBOutlet weak var postTextLabel: UILabel!
     @IBOutlet weak var heartImage: UIImageView!
@@ -16,8 +16,12 @@ class PostsCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var readMoreButton: UIButton!
     
+    //MARK: - Properties
     var onReadMoreTapped: (() -> Void)?
+    private let collapsedLines = 2
+    private let expandedLines = 0
     
+    //MARK: - Override methods
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpButton()
@@ -27,35 +31,21 @@ class PostsCell: UITableViewCell {
         super.prepareForReuse()
         readMoreButton.isHidden = false
         readMoreButton.setTitle("Read more", for: .normal)
-        postTextLabel.numberOfLines = 2
+        postTextLabel.numberOfLines = collapsedLines
     }
     
+    //MARK: - Actions
     @IBAction func ReadMoreButtonPressed(_ sender: UIButton) {
         let linesCount = postTextLabel.numberOfLines
-        if linesCount == 2 {
+        if linesCount == collapsedLines {
             setReadLess()
         }
-        if linesCount == 0 {
+        if linesCount == expandedLines {
             setReadmore()
         }
     }
     
-    func configureDate(_ date: Double) {
-        let startDate = Date()
-        let endDate = Date(timeIntervalSince1970: date)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        let endDateString = dateFormatter.string(from: endDate)
-        if let endDate = dateFormatter.date(from: endDateString) {
-            let components = Calendar.current.dateComponents([.day], from: endDate, to: startDate)
-            if components.day! > 30 {
-                dateLabel.text = "\(components.day!/30) monthes ago"
-            } else {
-                dateLabel.text = "\(components.day!) days ago"
-            }
-        }
-    }
-    
+    //MARK: - View configuration
     func configure (title: String,
                     text: String,
                     likes: Int,
@@ -64,21 +54,41 @@ class PostsCell: UITableViewCell {
         postTextLabel.text = text
         likesLabel.text = String(likes)
         
-        if  postTextLabel.text!.count < 100 {
+        let maxSymbolsCount = 100
+        if  postTextLabel.text!.count < maxSymbolsCount {
             readMoreButton.isHidden = true
         }
-        
         configureDate(date)
     }
     
+    //MARK: - Date configuration method
+    private func configureDate(_ date: Double) {
+        let startDate = Date()
+        let daysInMonth = 30
+        let endDate = Date(timeIntervalSince1970: date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let endDateString = dateFormatter.string(from: endDate)
+        if let endDate = dateFormatter.date(from: endDateString) {
+            let components = Calendar.current.dateComponents([.day], from: endDate, to: startDate)
+            guard let days = components.day else { return }
+            if days > daysInMonth {
+                dateLabel.text = "\(days/daysInMonth) monthes ago"
+            } else {
+                dateLabel.text = "\(days) days ago"
+            }
+        }
+    }
+    
+    //MARK: - Expand/Collaps button setup
     private func setReadLess() {
-        self.postTextLabel.numberOfLines = 0
+        self.postTextLabel.numberOfLines = expandedLines
         readMoreButton.setTitle("Read less", for: .normal)
         onReadMoreTapped?()
     }
     
     private func setReadmore() {
-        self.postTextLabel.numberOfLines = 2
+        self.postTextLabel.numberOfLines = collapsedLines
         readMoreButton.setTitle("Read more", for: .normal)
         onReadMoreTapped?()
     }

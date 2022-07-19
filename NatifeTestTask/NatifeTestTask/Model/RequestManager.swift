@@ -7,31 +7,33 @@
 
 import Foundation
 
+//MARK: - Protocols
 protocol RequestManagerDelegate: AnyObject {
     func updateContent (data: [PostsModel])
     func didFailWithError(error: Error)
 }
 
-class RequestManager {
+final class RequestManager {
+    //MARK: - Properties
     weak var delegate: RequestManagerDelegate?
     let baseURL = "https://raw.githubusercontent.com/anton-natife/jsons/master/api/main.json"
     
-    func getURL () {
+    //MARK: - Request methods
+    func getPosts() {
         if let readyURL = URL(string: baseURL) {
             performRequest(url: readyURL)
-        } else  {
-            print("error")
         }
     }
     
-    func getURL (postId: Int) {
+    func getPostById(_ postId: Int) {
         let path = "https://raw.githubusercontent.com/anton-natife/jsons/master/api/posts/\(postId).json"
         if let readyURL = URL(string: path) {
             performRequest(url: readyURL)
         }
     }
     
-    func performRequest(url: URL) {
+    //MARK: - URLSession method
+    private func performRequest(url: URL) {
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { (data, response, error) in
             if error != nil {
@@ -45,19 +47,20 @@ class RequestManager {
         task.resume()
     }
     
-    func parseJSON (data: Data) {
+    //MARK: - Parse JSON method
+    private func parseJSON (data: Data) {
         let decoder = JSONDecoder()
         var postsArray: [PostsModel] = []
         do {
             let postsData = try decoder.decode(PostsData?.self, from: data)
             guard let  decodedData = postsData else {return}
             if let posts = decodedData.posts {
-                for i in posts {
-                    let model = PostsModel(id: i.postId,
-                                           date: i.timeShamp,
-                                           title: i.title,
-                                           preview: i.previewText,
-                                           likes: i.likesCount,
+                for post in posts {
+                    let model = PostsModel(id: post.postId,
+                                           date: post.timeShamp,
+                                           title: post.title,
+                                           preview: post.previewText,
+                                           likes: post.likesCount,
                                            link: nil)
                     postsArray.append(model)
                 }
