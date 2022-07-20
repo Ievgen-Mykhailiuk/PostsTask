@@ -7,6 +7,12 @@
 
 import UIKit
 
+//MARK: - Protocols
+protocol CellStateDelegate {
+    func cellIsExpanded(_ postId: Int)
+    func cellIsCollapsed(_ postId: Int)
+}
+
 final class PostsCell: UITableViewCell {
     //MARK: - Outlets
     @IBOutlet weak var postTitleLabel: UILabel!
@@ -17,7 +23,8 @@ final class PostsCell: UITableViewCell {
     @IBOutlet weak var readMoreButton: UIButton!
     
     //MARK: - Properties
-    var onReadMoreTapped: (() -> Void)?
+    var delegate: CellStateDelegate?
+    var postId = 0
     private let collapsedLines = 2
     private let expandedLines = 0
     
@@ -30,18 +37,17 @@ final class PostsCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         readMoreButton.isHidden = false
-        readMoreButton.setTitle("Read more", for: .normal)
-        postTextLabel.numberOfLines = collapsedLines
     }
     
     //MARK: - Actions
     @IBAction func ReadMoreButtonPressed(_ sender: UIButton) {
-        let linesCount = postTextLabel.numberOfLines
-        if linesCount == collapsedLines {
+        let lines = postTextLabel.numberOfLines
+        if lines == collapsedLines {
             setReadLess()
-        }
-        if linesCount == expandedLines {
+            delegate?.cellIsExpanded(postId)
+        } else if lines == expandedLines {
             setReadmore()
+            delegate?.cellIsCollapsed(postId)
         }
     }
     
@@ -81,16 +87,14 @@ final class PostsCell: UITableViewCell {
     }
     
     //MARK: - Expand/Collaps button setup
-    private func setReadLess() {
+    func setReadLess() {
         self.postTextLabel.numberOfLines = expandedLines
         readMoreButton.setTitle("Read less", for: .normal)
-        onReadMoreTapped?()
     }
     
-    private func setReadmore() {
+    func setReadmore() {
         self.postTextLabel.numberOfLines = collapsedLines
         readMoreButton.setTitle("Read more", for: .normal)
-        onReadMoreTapped?()
     }
     
     private func setUpButton() {

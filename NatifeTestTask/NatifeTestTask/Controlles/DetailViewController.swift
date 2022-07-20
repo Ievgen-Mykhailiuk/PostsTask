@@ -54,6 +54,7 @@ final class DetailViewController: UIViewController {
     private func formatDate(_ date: Double) -> String {
         let postDate = Date(timeIntervalSince1970: date)
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateFormat = "dd  MMMM  yyyy"
         let postDateString = dateFormatter.string(from: postDate)
         return postDateString

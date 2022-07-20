@@ -20,6 +20,11 @@ final class PostsViewController: UIViewController {
             postsTableView.reloadData()
         }
     }
+    private var expandedPosts: [Int] = [] {
+        didSet {
+            postsTableView.reloadData()
+        }
+    }
     
     //MARK: - Override methods
     override func viewDidLoad() {
@@ -48,7 +53,7 @@ final class PostsViewController: UIViewController {
     private func setupSortButton() {
         sortButton.menu = sortMenu()
     }
-
+    
     private func sortMenu() -> UIMenu {
         let sortMenu = UIMenu(title: "Sort by", children: [
             UIAction(title: "Default", image: UIImage(systemName: "stop"))  { action in
@@ -98,10 +103,15 @@ extension PostsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier:"reusableCell", for: indexPath) as! PostsCell
         let post = posts[indexPath.row]
         cell.configure(title: post.title, text: post.preview, likes: post.likes, date: post.date)
-        cell.onReadMoreTapped = { [weak self] in
-            self?.postsTableView.beginUpdates()
-            self?.postsTableView.endUpdates()
+        cell.postId = post.id
+        
+        if expandedPosts.contains(post.id) {
+            cell.setReadLess()
+        } else {
+            cell.setReadmore()
         }
+
+        cell.delegate = self
         return cell
     }
 }
@@ -115,8 +125,21 @@ extension PostsViewController: UITableViewDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
 
+//MARK: - CellStateDelegate
+extension PostsViewController: CellStateDelegate {
+    func cellIsExpanded(_ postId: Int) {
+        expandedPosts.append(postId)
+    }
+    
+    func cellIsCollapsed(_ postId: Int) {
+        var postIndex: Int
+        if let index = expandedPosts.firstIndex(where: { $0 == postId }) {
+            postIndex = Int(index)
+            expandedPosts.remove(at: postIndex)
+        }
+    }
+}
 
 

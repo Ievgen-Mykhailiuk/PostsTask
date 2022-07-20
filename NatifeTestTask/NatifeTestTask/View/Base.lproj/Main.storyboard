@@ -32,7 +32,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iF1-mX-zjP">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="text.justifyleft" catalog="system" id="fKH-Sn-92y"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="text.justify" catalog="system" id="fKH-Sn-92y"/>
                     </navigationItem>
                     <connections>
                         <outlet property="postsTableView" destination="8kD-sh-fjp" id="Dk2-wE-iuK"/>
@@ -177,7 +177,7 @@
     </scenes>
     <resources>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="text.justifyleft" catalog="system" width="128" height="100"/>
+        <image name="text.justify" catalog="system" width="128" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
