@@ -7,10 +7,10 @@
 
 import Foundation
 
-
 struct Posts: Codable {
     let posts: [PostsModel]
 }
+
 struct PostsModel: Codable {
     
     let postId: Int

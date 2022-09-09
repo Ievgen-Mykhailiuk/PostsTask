@@ -8,12 +8,12 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func request<T: Codable>(from endPoint: EndPoint,
-                             httpMethod: NetworkService.HttpMethod,
+    func fetch<T: Codable>(from endPoint: EndPoint,
+                             httpMethod: BaseNetworkService.HttpMethod,
                              completion: @escaping (Result<T, NetworkError>) -> Void)
 }
 
-class NetworkService: NetworkServiceProtocol {
+class BaseNetworkService: NetworkServiceProtocol {
     
     //MARK: - Http methods
     enum HttpMethod: String {
@@ -23,7 +23,7 @@ class NetworkService: NetworkServiceProtocol {
     }
  
     //MARK: - Network request method
-    func request<T: Codable>(from endPoint: EndPoint,
+    func fetch<T: Codable>(from endPoint: EndPoint,
                              httpMethod: HttpMethod = .get,
                              completion: @escaping (Result<T, NetworkError>) -> Void) {
         

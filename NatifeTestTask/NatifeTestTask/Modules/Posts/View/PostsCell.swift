@@ -9,8 +9,7 @@ import UIKit
 
 //MARK: - Protocols
 protocol CellStateDelegate {
-    func cellIsExpanded(_ postId: Int)
-    func cellIsCollapsed(_ postId: Int)
+    func buttonPressed(_ postId: Int)
 }
 
 final class PostsCell: BaseTableViewCell {
@@ -27,6 +26,7 @@ final class PostsCell: BaseTableViewCell {
     var postId = 0
     private let collapsedLines = 2
     private let expandedLines = 0
+    private let maxSymbolsCount = 100
     
     //MARK: - Override methods
     override func awakeFromNib() {
@@ -41,28 +41,20 @@ final class PostsCell: BaseTableViewCell {
     
     //MARK: - Actions
     @IBAction func ReadMoreButtonPressed(_ sender: UIButton) {
-        
-        let lines = postTextLabel.numberOfLines
-        if lines == collapsedLines {
-            setReadLess()
-            delegate?.cellIsExpanded(postId)
-        } else if lines == expandedLines {
-            setReadmore()
-            delegate?.cellIsCollapsed(postId)
-        }
+        delegate?.buttonPressed(postId)
     }
     
     //MARK: - View configuration
-    func configure (post: PostsModel) {
+    func configure (post: PostsModel, isExpanded: Bool) {
+        isExpanded ? makeExpanded() : makeCollapsed()
+        self.postId = post.postId
         postTitleLabel.text = post.title
         postTextLabel.text = post.previewText
         likesLabel.text = String(post.likesCount)
-        
-        let maxSymbolsCount = 100
+        configureDate(with: post.timeShamp)
         if  postTextLabel.text!.count < maxSymbolsCount {
             readMoreButton.isHidden = true
         }
-        configureDate(with: post.timeShamp)
     }
     
     //MARK: - Date configuration method
@@ -85,12 +77,12 @@ final class PostsCell: BaseTableViewCell {
     }
     
     //MARK: - Expand/Collaps button setup
-    func setReadLess() {
+    func makeExpanded() {
         self.postTextLabel.numberOfLines = expandedLines
         readMoreButton.setTitle("Read less", for: .normal)
     }
     
-    func setReadmore() {
+    func makeCollapsed() {
         self.postTextLabel.numberOfLines = collapsedLines
         readMoreButton.setTitle("Read more", for: .normal)
     }

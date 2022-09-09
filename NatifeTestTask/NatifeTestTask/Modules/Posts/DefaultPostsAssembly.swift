@@ -13,8 +13,8 @@ protocol PostsAssembly {
 
 final class DefaultPostsAssembly: PostsAssembly {
     func createPostsModule() -> UIViewController {
-        let view  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postVC") as! PostsViewController
-        let apiManager = ApiManager()
+        let view  = PostsViewController.instantiateFromStoryboard()
+        let apiManager = PostsAPIService()
         let router = DefaultPostsRouter(viewController: view)
         let presenter = PostsViewPresenter(view: view,
                                            apiManager: apiManager,

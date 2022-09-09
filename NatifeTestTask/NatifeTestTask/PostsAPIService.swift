@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol PostsNetwork {
+protocol PostsNetworkService {
     func getPosts(completion: @escaping (Result<Posts, NetworkError>) -> Void)
 }
 
-class ApiManager: NetworkService, PostsNetwork {
+class PostsAPIService: BaseNetworkService, PostsNetworkService {
 
     func getPosts(completion: @escaping (Result<Posts, NetworkError>) -> Void) {
-        request(from: .getPosts,
+        fetch(from: .getPosts,
                 httpMethod: .get) { (result: Result<Posts, NetworkError>) in
             switch result {
             case .success(let data):
