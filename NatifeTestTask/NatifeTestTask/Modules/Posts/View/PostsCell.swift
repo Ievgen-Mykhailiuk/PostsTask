@@ -13,14 +13,14 @@ protocol CellStateDelegate {
     func cellIsCollapsed(_ postId: Int)
 }
 
-final class PostsCell: UITableViewCell {
+final class PostsCell: BaseTableViewCell {
     //MARK: - Outlets
-    @IBOutlet weak var postTitleLabel: UILabel!
-    @IBOutlet weak var postTextLabel: UILabel!
-    @IBOutlet weak var heartImage: UIImageView!
-    @IBOutlet weak var likesLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var readMoreButton: UIButton!
+    @IBOutlet private weak var postTitleLabel: UILabel!
+    @IBOutlet private weak var postTextLabel: UILabel!
+    @IBOutlet private weak var heartImage: UIImageView!
+    @IBOutlet private weak var likesLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var readMoreButton: UIButton!
     
     //MARK: - Properties
     var delegate: CellStateDelegate?
@@ -31,7 +31,7 @@ final class PostsCell: UITableViewCell {
     //MARK: - Override methods
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpButton()
+        setupButton()
     }
     
     override func prepareForReuse() {
@@ -41,6 +41,7 @@ final class PostsCell: UITableViewCell {
     
     //MARK: - Actions
     @IBAction func ReadMoreButtonPressed(_ sender: UIButton) {
+        
         let lines = postTextLabel.numberOfLines
         if lines == collapsedLines {
             setReadLess()
@@ -52,23 +53,20 @@ final class PostsCell: UITableViewCell {
     }
     
     //MARK: - View configuration
-    func configure (title: String,
-                    text: String,
-                    likes: Int,
-                    date: Double) {
-        postTitleLabel.text = title
-        postTextLabel.text = text
-        likesLabel.text = String(likes)
+    func configure (post: PostsModel) {
+        postTitleLabel.text = post.title
+        postTextLabel.text = post.previewText
+        likesLabel.text = String(post.likesCount)
         
         let maxSymbolsCount = 100
         if  postTextLabel.text!.count < maxSymbolsCount {
             readMoreButton.isHidden = true
         }
-        configureDate(date)
+        configureDate(with: post.timeShamp)
     }
     
     //MARK: - Date configuration method
-    private func configureDate(_ date: Double) {
+    private func configureDate(with date: Double) {
         let startDate = Date()
         let daysInMonth = 30
         let endDate = Date(timeIntervalSince1970: date)
@@ -97,7 +95,7 @@ final class PostsCell: UITableViewCell {
         readMoreButton.setTitle("Read more", for: .normal)
     }
     
-    private func setUpButton() {
+    private func setupButton() {
         readMoreButton.layer.cornerRadius = 10
         readMoreButton.layer.borderWidth = 1
         readMoreButton.layer.borderColor = UIColor.black.cgColor

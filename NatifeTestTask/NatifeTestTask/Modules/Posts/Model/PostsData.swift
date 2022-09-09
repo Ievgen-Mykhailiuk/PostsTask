@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct PostsData: Codable {
-    let posts: [Posts]?
-    let post: Post?
-}
 
 struct Posts: Codable {
+    let posts: [PostsModel]
+}
+struct PostsModel: Codable {
+    
     let postId: Int
     let timeShamp: Double
     let title: String
@@ -28,7 +28,7 @@ struct Posts: Codable {
     }
 }
 
-struct Post: Codable {
+struct PostModel: Codable {
     let postId: Int
     let timeShamp: Double
     let title: String

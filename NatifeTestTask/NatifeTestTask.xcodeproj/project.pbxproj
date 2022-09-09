@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC15AB3828C0D25D00BD39AC /* DefaultPostsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15AB3728C0D25D00BD39AC /* DefaultPostsAssembly.swift */; };
+		FC15AB3A28C0D26D00BD39AC /* DefaultPostsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15AB3928C0D26D00BD39AC /* DefaultPostsRouter.swift */; };
+		FC15AB3C28C0D2DB00BD39AC /* PostsViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15AB3B28C0D2DB00BD39AC /* PostsViewPresenter.swift */; };
+		FC15AB3E28C0D34200BD39AC /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15AB3D28C0D34200BD39AC /* BaseRouter.swift */; };
+		FC15AB4128C0D37C00BD39AC /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15AB4028C0D37C00BD39AC /* UINavigationController+Extension.swift */; };
+		FC15AB4328C0D3D000BD39AC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC15AB4228C0D3D000BD39AC /* UIViewController+Extension.swift */; };
 		FC243C1728855759004A3917 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C1628855759004A3917 /* AppDelegate.swift */; };
 		FC243C1928855759004A3917 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C1828855759004A3917 /* SceneDelegate.swift */; };
 		FC243C1B28855759004A3917 /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C1A28855759004A3917 /* PostsViewController.swift */; };
@@ -14,15 +20,27 @@
 		FC243C202885575B004A3917 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC243C1F2885575B004A3917 /* Assets.xcassets */; };
 		FC243C232885575B004A3917 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC243C212885575B004A3917 /* LaunchScreen.storyboard */; };
 		FC243C3828855C26004A3917 /* PostsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C3728855C26004A3917 /* PostsData.swift */; };
-		FC243C3A28855C49004A3917 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C3928855C49004A3917 /* PostsModel.swift */; };
-		FC243C3C28855C70004A3917 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C3B28855C70004A3917 /* RequestManager.swift */; };
+		FC243C3C28855C70004A3917 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C3B28855C70004A3917 /* NetworkService.swift */; };
 		FC243C3F2885630B004A3917 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC243C3D2885630B004A3917 /* PostsCell.swift */; };
 		FC243C402885630B004A3917 /* PostsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC243C3E2885630B004A3917 /* PostsCell.xib */; };
+		FC60224D28CA35730073ED85 /* TableCellDequeueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60224C28CA35730073ED85 /* TableCellDequeueable.swift */; };
+		FC60224F28CA35760073ED85 /* CellIdentifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60224E28CA35760073ED85 /* CellIdentifying.swift */; };
+		FC60225128CA35780073ED85 /* TableCellRegistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60225028CA35780073ED85 /* TableCellRegistable.swift */; };
+		FC60225328CA361F0073ED85 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60225228CA361F0073ED85 /* BaseTableViewCell.swift */; };
+		FC60225528CA793E0073ED85 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60225428CA793E0073ED85 /* EndPoint.swift */; };
+		FC60225728CA81800073ED85 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60225628CA81800073ED85 /* NetworkError.swift */; };
+		FC60225928CA83E80073ED85 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60225828CA83E80073ED85 /* ApiManager.swift */; };
 		FCA1B33E28856DD600290167 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA1B33D28856DD600290167 /* DetailViewController.swift */; };
 		FCA1B3412885704700290167 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FCA1B3402885704700290167 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FC15AB3728C0D25D00BD39AC /* DefaultPostsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostsAssembly.swift; sourceTree = "<group>"; };
+		FC15AB3928C0D26D00BD39AC /* DefaultPostsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostsRouter.swift; sourceTree = "<group>"; };
+		FC15AB3B28C0D2DB00BD39AC /* PostsViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewPresenter.swift; sourceTree = "<group>"; };
+		FC15AB3D28C0D34200BD39AC /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
+		FC15AB4028C0D37C00BD39AC /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		FC15AB4228C0D3D000BD39AC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		FC243C1328855759004A3917 /* NatifeTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NatifeTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC243C1628855759004A3917 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC243C1828855759004A3917 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,10 +50,16 @@
 		FC243C222885575B004A3917 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC243C242885575B004A3917 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC243C3728855C26004A3917 /* PostsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsData.swift; sourceTree = "<group>"; };
-		FC243C3928855C49004A3917 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
-		FC243C3B28855C70004A3917 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		FC243C3B28855C70004A3917 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		FC243C3D2885630B004A3917 /* PostsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCell.swift; sourceTree = "<group>"; };
 		FC243C3E2885630B004A3917 /* PostsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsCell.xib; sourceTree = "<group>"; };
+		FC60224C28CA35730073ED85 /* TableCellDequeueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellDequeueable.swift; sourceTree = "<group>"; };
+		FC60224E28CA35760073ED85 /* CellIdentifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifying.swift; sourceTree = "<group>"; };
+		FC60225028CA35780073ED85 /* TableCellRegistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellRegistable.swift; sourceTree = "<group>"; };
+		FC60225228CA361F0073ED85 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		FC60225428CA793E0073ED85 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		FC60225628CA81800073ED85 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		FC60225828CA83E80073ED85 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		FCA1B33D28856DD600290167 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,6 +75,95 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC15AB2E28C0CFF400BD39AC /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				FC15AB3528C0D01A00BD39AC /* Model */,
+				FC15AB3328C0D01A00BD39AC /* View */,
+				FC15AB3428C0D01A00BD39AC /* Presenter */,
+				FC15AB3928C0D26D00BD39AC /* DefaultPostsRouter.swift */,
+				FC15AB3728C0D25D00BD39AC /* DefaultPostsAssembly.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		FC15AB2F28C0CFFB00BD39AC /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				FC15AB3228C0D00F00BD39AC /* Model */,
+				FC15AB3128C0D00A00BD39AC /* View */,
+				FC15AB3028C0D00200BD39AC /* Presenter */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		FC15AB3028C0D00200BD39AC /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		FC15AB3128C0D00A00BD39AC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FCA1B33D28856DD600290167 /* DetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FC15AB3228C0D00F00BD39AC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FC15AB3328C0D01A00BD39AC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC243C1A28855759004A3917 /* PostsViewController.swift */,
+				FC243C1C28855759004A3917 /* Main.storyboard */,
+				FC243C3D2885630B004A3917 /* PostsCell.swift */,
+				FC243C3E2885630B004A3917 /* PostsCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FC15AB3428C0D01A00BD39AC /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FC15AB3B28C0D2DB00BD39AC /* PostsViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		FC15AB3528C0D01A00BD39AC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FC243C3728855C26004A3917 /* PostsData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FC15AB3628C0D02500BD39AC /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				FC15AB2E28C0CFF400BD39AC /* Posts */,
+				FC15AB2F28C0CFFB00BD39AC /* Details */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		FC15AB3F28C0D35F00BD39AC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FC15AB4028C0D37C00BD39AC /* UINavigationController+Extension.swift */,
+				FC15AB4228C0D3D000BD39AC /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FC243C0A28855759004A3917 = {
 			isa = PBXGroup;
 			children = (
@@ -70,45 +183,32 @@
 		FC243C1528855759004A3917 /* NatifeTestTask */ = {
 			isa = PBXGroup;
 			children = (
-				FC243C3628855BF8004A3917 /* Model */,
-				FC243C3528855BEB004A3917 /* View */,
-				FC243C3428855BE2004A3917 /* Controlles */,
+				FC60224B28CA35560073ED85 /* Protocols */,
+				FC15AB3F28C0D35F00BD39AC /* Extensions */,
+				FC15AB3628C0D02500BD39AC /* Modules */,
 				FC243C1628855759004A3917 /* AppDelegate.swift */,
+				FC243C3B28855C70004A3917 /* NetworkService.swift */,
 				FC243C1828855759004A3917 /* SceneDelegate.swift */,
 				FC243C1F2885575B004A3917 /* Assets.xcassets */,
 				FC243C212885575B004A3917 /* LaunchScreen.storyboard */,
 				FC243C242885575B004A3917 /* Info.plist */,
+				FC15AB3D28C0D34200BD39AC /* BaseRouter.swift */,
+				FC60225228CA361F0073ED85 /* BaseTableViewCell.swift */,
+				FC60225428CA793E0073ED85 /* EndPoint.swift */,
+				FC60225628CA81800073ED85 /* NetworkError.swift */,
+				FC60225828CA83E80073ED85 /* ApiManager.swift */,
 			);
 			path = NatifeTestTask;
 			sourceTree = "<group>";
 		};
-		FC243C3428855BE2004A3917 /* Controlles */ = {
+		FC60224B28CA35560073ED85 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				FC243C1A28855759004A3917 /* PostsViewController.swift */,
-				FCA1B33D28856DD600290167 /* DetailViewController.swift */,
+				FC60224E28CA35760073ED85 /* CellIdentifying.swift */,
+				FC60225028CA35780073ED85 /* TableCellRegistable.swift */,
+				FC60224C28CA35730073ED85 /* TableCellDequeueable.swift */,
 			);
-			path = Controlles;
-			sourceTree = "<group>";
-		};
-		FC243C3528855BEB004A3917 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				FC243C1C28855759004A3917 /* Main.storyboard */,
-				FC243C3D2885630B004A3917 /* PostsCell.swift */,
-				FC243C3E2885630B004A3917 /* PostsCell.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		FC243C3628855BF8004A3917 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FC243C3728855C26004A3917 /* PostsData.swift */,
-				FC243C3928855C49004A3917 /* PostsModel.swift */,
-				FC243C3B28855C70004A3917 /* RequestManager.swift */,
-			);
-			path = Model;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,13 +289,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC15AB3828C0D25D00BD39AC /* DefaultPostsAssembly.swift in Sources */,
 				FC243C3F2885630B004A3917 /* PostsCell.swift in Sources */,
+				FC15AB3C28C0D2DB00BD39AC /* PostsViewPresenter.swift in Sources */,
+				FC15AB3A28C0D26D00BD39AC /* DefaultPostsRouter.swift in Sources */,
+				FC60225328CA361F0073ED85 /* BaseTableViewCell.swift in Sources */,
+				FC15AB4328C0D3D000BD39AC /* UIViewController+Extension.swift in Sources */,
 				FC243C1B28855759004A3917 /* PostsViewController.swift in Sources */,
+				FC15AB4128C0D37C00BD39AC /* UINavigationController+Extension.swift in Sources */,
 				FC243C3828855C26004A3917 /* PostsData.swift in Sources */,
+				FC60225728CA81800073ED85 /* NetworkError.swift in Sources */,
+				FC60225928CA83E80073ED85 /* ApiManager.swift in Sources */,
 				FC243C1728855759004A3917 /* AppDelegate.swift in Sources */,
-				FC243C3C28855C70004A3917 /* RequestManager.swift in Sources */,
+				FC60225128CA35780073ED85 /* TableCellRegistable.swift in Sources */,
+				FC60225528CA793E0073ED85 /* EndPoint.swift in Sources */,
+				FC15AB3E28C0D34200BD39AC /* BaseRouter.swift in Sources */,
+				FC60224F28CA35760073ED85 /* CellIdentifying.swift in Sources */,
+				FC243C3C28855C70004A3917 /* NetworkService.swift in Sources */,
 				FCA1B33E28856DD600290167 /* DetailViewController.swift in Sources */,
-				FC243C3A28855C49004A3917 /* PostsModel.swift in Sources */,
+				FC60224D28CA35730073ED85 /* TableCellDequeueable.swift in Sources */,
 				FC243C1928855759004A3917 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
