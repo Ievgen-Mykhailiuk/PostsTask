@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct Posts: Codable {
-    let posts: [PostsModel]
+struct PostList: Codable {
+    let posts: [PostListModel]
 }
 
-struct PostsModel: Codable {
+struct PostListModel: Codable {
     
-    let postId: Int
+    let id: Int
     let timeShamp: Double
     let title: String
     let previewText: String
     let likesCount: Int
     
     enum CodingKeys: String, CodingKey {
-        case postId
+        case id = "postId"
         case timeShamp = "timeshamp"
         case title
         case previewText = "preview_text"
@@ -29,7 +29,7 @@ struct PostsModel: Codable {
 }
 
 struct PostModel: Codable {
-    let postId: Int
+    let id: Int
     let timeShamp: Double
     let title: String
     let text: String
@@ -37,7 +37,7 @@ struct PostModel: Codable {
     let likesCount: Int
     
     enum CodingKeys: String, CodingKey {
-        case postId
+        case id = "postId"
         case timeShamp = "timeshamp"
         case title, text, postImage
         case likesCount = "likes_count"

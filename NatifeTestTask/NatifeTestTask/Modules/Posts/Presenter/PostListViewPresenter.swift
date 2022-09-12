@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol PostsViewPresenterProtocol: AnyObject {
-    func fetchPosts()
+protocol PostListPresenter: AnyObject {
+    func fetchPostList()
     func sort(_ method: SortingMethod)
-    func getPost(by index: Int) -> PostsModel
-    func getPostsCount() -> Int
+    func getPost(at index: Int) -> PostListModel
+    func getPostListCount() -> Int
     func isExpanded(_ postId: Int) -> Bool
-    func setState(to post: Int)
+    func setState(for post: Int)
 }
 
 enum SortingMethod {
@@ -22,27 +22,27 @@ enum SortingMethod {
     case byDate
 }
 
-final class PostsViewPresenter {
+final class PostListViewPresenter {
     
     //MARK: - Properties
-    private weak var view: PostsViewProtocol!
-    private let apiManager: PostsAPIService
-    private let router: DefaultPostsRouter
-    private var posts = [PostsModel]() {
+    private weak var view: PostListView!
+    private let apiManager: PostListAPIService
+    private let router: DefaultPostListRouter
+    private var postList = [PostListModel]() {
         didSet {
-            self.view.updateContent()
+            self.view.updatePostList()
         }
     }
     private var expandedPosts = [Int]() {
         didSet {
-            self.view.updateContent()
+            self.view.updatePostList()
         }
     }
     
     //MARK: - Life Cycle
-    init(view: PostsViewProtocol,
-         apiManager: PostsAPIService,
-         router: DefaultPostsRouter) {
+    init(view: PostListView,
+         apiManager: PostListAPIService,
+         router: DefaultPostListRouter) {
         self.view = view
         self.apiManager = apiManager
         self.router = router
@@ -50,14 +50,15 @@ final class PostsViewPresenter {
 }
 
 //MARK: - PostsViewPresenterProtocol
-extension PostsViewPresenter: PostsViewPresenterProtocol {
-    func fetchPosts() {
-        apiManager.getPosts { result in
+extension PostListViewPresenter: PostListPresenter {
+    func fetchPostList() {
+        apiManager.request { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let data):
-                self.posts = data.posts
+                self.postList = data.posts
             case .failure(let error):
-                self.view.didFailWithError(error: error)
+                self.view.didFailWithError(error: error.rawValue)
             }
         }
     }
@@ -65,20 +66,20 @@ extension PostsViewPresenter: PostsViewPresenterProtocol {
     func sort(_ method: SortingMethod) {
         switch method {
         case .byDefault:
-            fetchPosts()
+            fetchPostList()
         case .byLikes:
-            posts =  posts.sorted(by: { $0.likesCount > $1.likesCount })
+            postList =  postList.sorted(by: { $0.likesCount > $1.likesCount })
         case .byDate:
-            posts = posts.sorted(by: { $0.timeShamp > $1.timeShamp })
+            postList = postList.sorted(by: { $0.timeShamp > $1.timeShamp })
         }
     }
     
-    func getPost(by index: Int) -> PostsModel {
-        return posts[index]
+    func getPost(at index: Int) -> PostListModel {
+        return postList[index]
     }
     
-    func getPostsCount() -> Int {
-        return posts.count
+    func getPostListCount() -> Int {
+        return postList.count
     }
     
     func isExpanded(_ postId: Int) -> Bool {
@@ -91,7 +92,7 @@ extension PostsViewPresenter: PostsViewPresenterProtocol {
         return state
     }
     
-    func setState(to post: Int) {
+    func setState(for post: Int) {
         if expandedPosts.contains(post) {
             var postIndex: Int
             if let index = expandedPosts.firstIndex(where: { $0 == post }) {

@@ -1,5 +1,5 @@
 //
-//  PostsViewController.swift
+//  PostListViewController.swift
 //  NatifeTest
 //
 //  Created by Евгений  on 15/07/2022.
@@ -7,19 +7,19 @@
 
 import UIKit
 
-protocol PostsViewProtocol: AnyObject {
-    func updateContent()
-    func didFailWithError(error: Error)
+protocol PostListView: AnyObject {
+    func updatePostList()
+    func didFailWithError(error: String)
 }
 
-final class PostsViewController: UIViewController {
+final class PostListViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet weak var sortButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Properties
-    var presenter: PostsViewPresenterProtocol!
+    var presenter: PostListPresenter!
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -31,12 +31,12 @@ final class PostsViewController: UIViewController {
     private func initialSetup() {
         setupTableView()
         setupSortMenu()
-        presenter.fetchPosts()
+        presenter.fetchPostList()
     }
     
     private func setupTableView() {
         tableView.dataSource = self
-        PostsCell.registerNib(in: self.tableView)
+        PostListCell.registerNib(in: self.tableView)
     }
     
     private func setupSortMenu() {
@@ -55,26 +55,31 @@ final class PostsViewController: UIViewController {
     }
 }
 
-extension PostsViewController: PostsViewProtocol {
-    func updateContent() {
-        tableView.reloadData()
+//MARK: - PostListViewProtocol
+extension PostListViewController: PostListView {
+    func updatePostList() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
-    func didFailWithError(error: Error) {
-        showAlert(title: "Error", message: error.localizedDescription)
+    func didFailWithError(error: String) {
+        DispatchQueue.main.async {
+            self.showAlert(title: "Error", message: error)
+        }
     }
 }
 
 //MARK: - UITableViewDataSource
-extension PostsViewController: UITableViewDataSource {
+extension PostListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.getPostsCount()
+        return presenter.getPostListCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PostsCell = .cell(in: self.tableView, at: indexPath)
-        let post = presenter.getPost(by: indexPath.row)
-        let state = presenter.isExpanded(post.postId)
+        let cell: PostListCell = .cell(in: self.tableView, at: indexPath)
+        let post = presenter.getPost(at: indexPath.row)
+        let state = presenter.isExpanded(post.id)
         cell.configure(post: post, isExpanded: state)
         cell.delegate = self
         return cell
@@ -82,8 +87,8 @@ extension PostsViewController: UITableViewDataSource {
 }
 
 //MARK: - CellStateDelegate
-extension PostsViewController: CellStateDelegate {
-    func buttonPressed(_ post: Int) {
-        presenter.setState(to: post)
+extension PostListViewController: CellStateDelegate {
+    func readMoreButtonTapped(_ post: Int) {
+        presenter.setState(for: post)
     }
 }

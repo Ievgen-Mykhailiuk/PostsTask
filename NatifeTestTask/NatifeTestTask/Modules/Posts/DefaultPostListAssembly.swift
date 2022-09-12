@@ -1,5 +1,5 @@
 //
-//  DefaultPostsAssembly.swift
+//  DefaultPostListAssembly.swift
 //  NatifeTestTask
 //
 //  Created by Евгений  on 01/09/2022.
@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol PostsAssembly {
+protocol PostListAssembly {
     func createPostsModule() -> UIViewController
 }
 
-final class DefaultPostsAssembly: PostsAssembly {
+final class DefaultPostListAssembly: PostListAssembly {
     func createPostsModule() -> UIViewController {
-        let view  = PostsViewController.instantiateFromStoryboard()
-        let apiManager = PostsAPIService()
-        let router = DefaultPostsRouter(viewController: view)
-        let presenter = PostsViewPresenter(view: view,
+        let view  = PostListViewController.instantiateFromStoryboard()
+        let apiManager = PostListAPIService()
+        let router = DefaultPostListRouter(viewController: view)
+        let presenter = PostListViewPresenter(view: view,
                                            apiManager: apiManager,
                                            router: router)
         view.presenter = presenter

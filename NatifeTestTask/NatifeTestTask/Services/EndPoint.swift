@@ -8,8 +8,8 @@
 import Foundation
 
 enum EndPoint {
-    case getPosts
-    case getPost(id: Int)
+    case postList
+    case post(id: Int)
 }
 
 extension EndPoint {
@@ -24,9 +24,9 @@ extension EndPoint {
     
     var path: String {
         switch self {
-        case .getPosts:
+        case .postList:
             return "/anton-natife/jsons/master/api/main.json"
-        case .getPost(let id):
+        case .post(let id):
             return "/anton-natife/jsons/master/api/posts/\(id).json"
         }
     }

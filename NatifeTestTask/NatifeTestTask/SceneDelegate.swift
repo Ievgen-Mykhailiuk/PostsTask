@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let view = DefaultPostsAssembly().createPostsModule()
+        let view = DefaultPostListAssembly().createPostsModule()
         window?.rootViewController = view
         window?.makeKeyAndVisible()
     }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol NetworkServiceProtocol {
-    func fetch<T: Codable>(from endPoint: EndPoint,
+protocol NetworkService {
+    func request<T: Codable>(from endPoint: EndPoint,
                              httpMethod: BaseNetworkService.HttpMethod,
                              completion: @escaping (Result<T, NetworkError>) -> Void)
 }
 
-class BaseNetworkService: NetworkServiceProtocol {
+class BaseNetworkService: NetworkService {
     
     //MARK: - Http methods
     enum HttpMethod: String {
@@ -21,9 +21,9 @@ class BaseNetworkService: NetworkServiceProtocol {
         case post
         var method: String { rawValue.uppercased() }
     }
- 
+    
     //MARK: - Network request method
-    func fetch<T: Codable>(from endPoint: EndPoint,
+    func request<T: Codable>(from endPoint: EndPoint,
                              httpMethod: HttpMethod = .get,
                              completion: @escaping (Result<T, NetworkError>) -> Void) {
         
@@ -65,8 +65,8 @@ class BaseNetworkService: NetworkServiceProtocol {
             
             do {
                 // decode data to model
-                let places = try JSONDecoder().decode(T.self, from: data)
-                completionOnMain(.success(places))
+                let decodeData = try JSONDecoder().decode(T.self, from: data)
+                completionOnMain(.success(decodeData))
             } catch {
                 completionOnMain(.failure(.invalidData))
             }
